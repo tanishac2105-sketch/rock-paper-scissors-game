@@ -26,14 +26,13 @@ def home():
 def play():
     data = request.get_json()
 
-    # Convert text → number (because your logic uses numbers)
     mapping = {
         "rock": 0,
         "paper": 1,
         "scissors": 2
     }
 
-    user_choice_str = data["user_choice"]
+    user_choice_str = data["choice"]
     user_choice = mapping[user_choice_str]
 
     computer_choice = random.randint(0, 2)
