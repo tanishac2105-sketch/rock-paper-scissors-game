@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Animated background -->
+    <div class="bg-gradient"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <!-- Intro overlay -->
+    <div class="intro-overlay" id="intro-overlay">
+        <div class="intro-content">
+            <div class="intro-emoji">🎮</div>
+            <h1 class="intro-title">Rock Paper Scissors</h1>
+            <p class="intro-sub">Are you ready to play?</p>
+            <button class="intro-btn" id="intro-btn">Let's Go ✨</button>
+        </div>
+    </div>
+
+    <!-- Main game -->
+    <div class="game-wrapper" id="game-wrapper">
+
+        <!-- Header -->
+        <div class="game-header">
+            <h1 class="game-title">
+                <span class="title-word">Rock</span>
+                <span class="title-dot">·</span>
+                <span class="title-word">Paper</span>
+                <span class="title-dot">·</span>
+                <span class="title-word">Scissors</span>
+            </h1>
+            <p class="game-subtitle">choose your weapon, bestie 🔮</p>
+
+            <!-- Mute toggle -->
+            <button class="mute-btn" id="mute-btn" aria-label="Toggle sound">
+                <span class="mute-icon" id="mute-icon">🔊</span>
+            </button>
+        </div>
+
+        <!-- Scoreboard -->
+        <div class="scoreboard-card">
+            <div class="score-item">
+                <span class="score-label">You</span>
+                <span class="score-value" id="user-score">0</span>
+            </div>
+            <div class="score-divider">
+                <span class="vs-text">VS</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">CPU</span>
+                <span class="score-value" id="computer-score">0</span>
+            </div>
+        </div>
+
+        <!-- Choice buttons -->
+        <div class="choices-section">
+            <p class="pick-label">Pick your move</p>
+            <div class="choices-grid">
+                <button class="choice-btn" id="btn-rock" onclick="playGame('rock')" aria-label="Rock">
+                    <div class="choice-inner">
+                        <div class="choice-glow"></div>
+                        <span class="choice-emoji">🪨</span>
+                        <span class="choice-label">Rock</span>
+                    </div>
+                </button>
+                <button class="choice-btn" id="btn-paper" onclick="playGame('paper')" aria-label="Paper">
+                    <div class="choice-inner">
+                        <div class="choice-glow"></div>
+                        <span class="choice-emoji">🗒️</span>
+                        <span class="choice-label">Paper</span>
+                    </div>
+                </button>
+                <button class="choice-btn" id="btn-scissors" onclick="playGame('scissors')" aria-label="Scissors">
+                    <div class="choice-inner">
+                        <div class="choice-glow"></div>
+                        <span class="choice-emoji">✂️</span>
+                        <span class="choice-label">Scissors</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Battle arena -->
+        <div class="arena-card" id="arena-card">
+            <div class="arena-side">
+                <div class="arena-emoji-wrap" id="user-emoji-wrap">
+                    <span class="arena-emoji" id="user-emoji">✦</span>
+                </div>
+                <span class="arena-name">You</span>
+            </div>
+            <div class="arena-center">
+                <div class="result-badge" id="result-badge">
+                    <span id="result-text">?</span>
+                </div>
+            </div>
+            <div class="arena-side">
+                <div class="arena-emoji-wrap" id="cpu-emoji-wrap">
+                    <span class="arena-emoji" id="cpu-emoji">✦</span>
+                </div>
+                <span class="arena-name">CPU</span>
+            </div>
+        </div>
+
+        <!-- Confetti container -->
+        <div class="confetti-container" id="confetti-container"></div>
+
+        <!-- Reset button -->
+        <button class="reset-btn" onclick="resetGame()" aria-label="Reset game">
+            <span>↺</span> Reset Game
+        </button>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
