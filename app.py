@@ -3,7 +3,6 @@ import random
 
 app = Flask(__name__)
 
-# Game choices
 choices = ["rock", "paper", "scissors"]
 
 def get_winner(user_choice, computer_choice):
