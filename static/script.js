@@ -3,6 +3,7 @@ let userScore = 0;
 let computerScore = 0;
 let isMuted = false;
 let isPlaying = false;
+const MATCH_LIMIT = 5;
 
 const emojiMap = { rock: '🪨', paper: '🗒️', scissors: '✂️' };
 
@@ -193,6 +194,7 @@ async function playGame(choice) {
                     playTone('win');
                     spawnConfetti();
                     bumpScore('user-score', userScore);
+                    updatePips('user-pips', userScore);
                 } else if (isLose) {
                     arenaCard.classList.add('lose');
                     resultBadge.classList.add('lose');
@@ -202,6 +204,7 @@ async function playGame(choice) {
                     arenaCard.classList.add('shake');
                     setTimeout(() => arenaCard.classList.remove('shake'), 500);
                     bumpScore('computer-score', computerScore);
+                    updatePips('cpu-pips', computerScore);
                 } else {
                     arenaCard.classList.add('draw');
                     resultBadge.classList.add('draw');
@@ -211,7 +214,12 @@ async function playGame(choice) {
                     setTimeout(() => arenaCard.classList.remove('pulse'), 700);
                 }
 
-                isPlaying = false;
+                // Check match end
+                if (userScore >= MATCH_LIMIT || computerScore >= MATCH_LIMIT) {
+                    setTimeout(() => showMatchOver(), 900);
+                } else {
+                    isPlaying = false;
+                }
             }, 200);
         }, 400);
 
@@ -231,6 +239,30 @@ function bumpScore(id, val) {
     setTimeout(() => el.classList.remove('bump'), 400);
 }
 
+function updatePips(pipId, count) {
+    const pips = document.querySelectorAll(`#${pipId} .pip`);
+    pips.forEach((pip, i) => {
+        pip.classList.toggle('filled', i < count);
+    });
+}
+
+function showMatchOver() {
+    const playerWon = userScore >= MATCH_LIMIT;
+    const trophy = document.getElementById('match-trophy');
+    const title = document.getElementById('match-title');
+    const scoreEl = document.getElementById('match-score');
+
+    trophy.textContent = playerWon ? '🏆' : '💀';
+    title.textContent = playerWon ? 'You Won the Match!' : 'CPU Won the Match!';
+    title.className = playerWon ? 'match-title' : 'match-title lose-title';
+    scoreEl.textContent = `${userScore} — ${computerScore}`;
+
+    if (playerWon) { spawnConfetti(); playTone('win'); }
+    else { playTone('lose'); }
+
+    document.getElementById('match-overlay').classList.add('show');
+}
+
 /* ===== RESET ===== */
 function resetGame() {
     if (isPlaying) return;
@@ -247,6 +279,11 @@ function resetGame() {
     document.getElementById('cpu-emoji').classList.remove('revealed');
     document.getElementById('result-text').textContent = '?';
 
+    updatePips('user-pips', 0);
+    updatePips('cpu-pips', 0);
+
+    document.getElementById('match-overlay').classList.remove('show');
+
     const arenaCard = document.getElementById('arena-card');
     const resultBadge = document.getElementById('result-badge');
     arenaCard.className = 'arena-card';
@@ -254,4 +291,5 @@ function resetGame() {
 
     document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
     document.getElementById('confetti-container').innerHTML = '';
+    isPlaying = false;
 }

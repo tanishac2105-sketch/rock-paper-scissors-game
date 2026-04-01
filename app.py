@@ -31,7 +31,7 @@ def play():
         "scissors": 2
     }
 
-    user_choice_str = data["choice"]
+    user_choice_str = data["user_choice"]
     user_choice = mapping[user_choice_str]
 
     computer_choice = random.randint(0, 2)

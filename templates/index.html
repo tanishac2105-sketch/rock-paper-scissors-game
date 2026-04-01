@@ -28,6 +28,17 @@
         </div>
     </div>
 
+    <!-- Match over overlay -->
+    <div class="match-overlay" id="match-overlay">
+        <div class="match-content">
+            <div class="match-trophy" id="match-trophy">🏆</div>
+            <p class="match-label" id="match-label">MATCH OVER</p>
+            <h2 class="match-title" id="match-title">You Won the Match!</h2>
+            <p class="match-score" id="match-score">5 — 3</p>
+            <button class="intro-btn" onclick="resetGame()">Play Again ↺</button>
+        </div>
+    </div>
+
     <!-- Main game -->
     <div class="game-wrapper" id="game-wrapper">
 
@@ -53,13 +64,20 @@
             <div class="score-item">
                 <span class="score-label">You</span>
                 <span class="score-value" id="user-score">0</span>
+                <div class="score-pips" id="user-pips">
+                    <span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span>
+                </div>
             </div>
             <div class="score-divider">
                 <span class="vs-text">VS</span>
+                <span class="match-info">First to 5</span>
             </div>
             <div class="score-item">
                 <span class="score-label">CPU</span>
                 <span class="score-value" id="computer-score">0</span>
+                <div class="score-pips" id="cpu-pips">
+                    <span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span>
+                </div>
             </div>
         </div>
 
